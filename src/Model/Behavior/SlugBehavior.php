@@ -138,7 +138,7 @@ class SlugBehavior extends Behavior
                     $slug = $string . $this->_config[$field]['replacement'] . $increment;
 
                     // Refresh slugs list
-                    $slugs = $this->_getSlugs($slug, $field);
+                    $slugs = array_merge($slugs, $this->_getSlugs($slug, $field));
 
                     if (in_array($slug, $slugs)) {
                         return $this->createSlug($slug, $field);
