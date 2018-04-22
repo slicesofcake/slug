@@ -72,10 +72,10 @@ class SlugBehavior extends Behavior
 
                         $entity->{$slug} = $this->createSlug($entity->{$this->_config[$slug]['field']}, $slug);
                     } else {
-                        throw new Exception('string!'); // @todo Exceptions
+                        throw new FieldTypeException(__d('slug', 'Field should be string type.'));
                     }
                 } else {
-                    throw new Exception('brak pola field'); // @todo Exceptions
+                    throw new FieldException(__d('slug', 'Cannot find field in schema.'));
                 }
             }
         }
