@@ -1,5 +1,5 @@
 <?php
-namespace App\Model\Behavior;
+namespace Slug\Model\Behavior;
 
 use Cake\ORM\Behavior;
 use Cake\Event\Event;
