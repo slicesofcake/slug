@@ -86,22 +86,12 @@ class SlugBehavior extends Behavior
      *
      * @param string $slug String to slug
      * @param string $field Slug field name
-     * @throws Exception
-     * @return string|mixed
+     * @return string Slug
      */
     public function createSlug($slug, $field)
     {
         if ((mb_strlen($this->_config[$field]['replacement']) + 1) < $this->_config[$field]['length']) {
-            $slugs = $this->_table->find($this->_config[$field]['finder'], [
-                'valueField' => $field,
-            ])->where([
-                'OR' => [
-                    $this->_table->getAlias() . '.' . $field => $slug,
-                    $this->_table->getAlias() . '.' . $field . ' REGEXP' => $a = '^' . $slug . $this->_config[$field]['replacement'] . '[1-9]+[0-9]*$',
-                ],
-            ])->order([
-                $this->_table->getAlias() . '.' . $field => 'ASC',
-            ])->toArray();
+            $slugs = $this->_getSlugs($slug, $field);
 
             // Slug is just numbers
             if (preg_match('/^[0-9]+$/', $slug)) {
@@ -148,19 +138,10 @@ class SlugBehavior extends Behavior
                     $slug = $string . $this->_config[$field]['replacement'] . $increment;
 
                     // Refresh slugs list
-                    $slugs = array_merge($slugs, $this->_table->find($this->_config[$field]['finder'], [
-                        'valueField' => $field,
-                    ])->where([
-                        'OR' => [
-                            $this->_table->getAlias() . '.' . $field => $slug,
-                            $this->_table->getAlias() . '.' . $field . ' REGEXP' => $a = '^' . $slug . $this->_config[$field]['replacement'] . '[1-9]+[0-9]*$',
-                        ],
-                    ])->order([
-                        $this->_table->getAlias() . '.' . $field => 'ASC',
-                    ])->toArray());
+                    $slugs = $this->_getSlugs($slug, $field);
 
                     if (in_array($slug, $slugs)) {
-                        return self::createSlug($slug, $field);
+                        return $this->createSlug($slug, $field);
                     }
                 } else {
                     throw new LengthException(__d('slug', 'Cannot create slug because there are no available names.'));
@@ -171,5 +152,26 @@ class SlugBehavior extends Behavior
         } else {
             throw new LimitException(__d('slug', 'Length limit is to short.'));
         }
+    }
+
+    /**
+     * Get exists slugs
+     *
+     * @param string $slug String to slug
+     * @param string $field Slug field name
+     * @return array List of slugs
+     */
+    protected function _getSlugs($slug, $field)
+    {
+        return $this->_table->find($this->_config[$field]['finder'], [
+            'valueField' => $field,
+        ])->where([
+            'OR' => [
+                $this->_table->getAlias() . '.' . $field => $slug,
+                $this->_table->getAlias() . '.' . $field . ' REGEXP' => '^' . $slug . $this->_config[$field]['replacement'] . '[1-9]+[0-9]*$',
+            ],
+        ])->order([
+            $this->_table->getAlias() . '.' . $field => 'ASC',
+        ])->toArray();
     }
 }
