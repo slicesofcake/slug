@@ -1,0 +1,28 @@
+{
+	"name" : "kicaj/slug",
+	"description" : "Slug plugin for CakePHP",
+	"type" : "cakephp-plugin",
+	"license" : "MIT",
+	"support" : {
+		"issues" : "https://github.com/kicaj/slug/issues",
+		"source" : "https://github.com/kicaj/slug"
+	},
+	"authors" : [{
+			"name" : "kicaj",
+			"email" : "kicaj@kdev.pl",
+			"role" : "Author"
+		}, {
+			"name" : "Others",
+			"homepage" : "https://github.com/kicaj/slug/graphs/contributors"
+		}
+	],
+	"require" : {
+		"cakephp/cakephp" : "^3"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Social\\" : "src"
+		}
+	},
+	"minimum-stability" : "dev"
+}
