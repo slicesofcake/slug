@@ -104,9 +104,9 @@ class SlugBehavior extends Behavior
                 $slug++;
             }
             
-            // Cut from left side
-            if ($length = mb_strlen($replace = preg_replace('/\s+/', $this->_config[$field]['replacement'], $slug)) > $this->_config[$field]['length']) {
-                $slug = mb_substr($replace, ($length - $this->_config[$field]['length'] - 1));
+            // Cut slug
+            if (mb_strlen($replace = preg_replace('/\s+/', $this->_config[$field]['replacement'], $slug)) > $this->_config[$field]['length']) {
+                $slug = mb_substr($replace, 0, $this->_config[$field]['length']);
                 
                 // Update slug list based on cut slug
                 $slugs = $this->_sortSlugs($this->_getSlugs($slug, $field));
