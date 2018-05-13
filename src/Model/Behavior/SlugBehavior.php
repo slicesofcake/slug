@@ -97,11 +97,13 @@ class SlugBehavior extends Behavior
             if (preg_match('/^[0-9]+$/', $slug)) {
                 $numbers = preg_grep('/^[0-9]+$/', $slugs);
                 
-                sort($numbers);
-                
-                $slug = end($numbers);
-                
-                $slug++;
+                if (!empty($numbers)) {
+                    sort($numbers);
+                    
+                    $slug = end($numbers);
+                    
+                    $slug++;
+                }
             }
             
             // Cut slug
