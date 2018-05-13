@@ -15,3 +15,7 @@ The recommended way to install composer packages is:
 ```
 composer require kicaj/slug dev-master
 ```
+
+## TODOs
+
+- [ ] Check own finder
