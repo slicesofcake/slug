@@ -155,7 +155,7 @@ class SlugBehavior extends Behavior
             
             return $slug;
         } else {
-            throw new LimitException(__d('slug', 'Length limit is to short.'));
+            throw new LimitException(__d('slug', 'Limit of length is too short.'));
         }
     }
     
