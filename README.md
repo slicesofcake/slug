@@ -35,7 +35,7 @@ $this->addBehavior('Slug.Slug', [
     'slug' => [ // Name of column to store slugs, default is slug
         'replacement' => '_', // Default is -
         'field' => 'name' // Field to create slug, default is title
-        'finder' => 'some' // You can build findSome, default is list
+        'finder' => 'some' // You can build own custom finder method, like findSome, default is built-in list
     ],
 ]);
 ```
