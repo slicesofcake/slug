@@ -103,7 +103,7 @@ class SlugBehavior extends Behavior
                     throw new MethodException(__d('slug', 'Method {0} does not exist.', $this->_config[$field]['method']));
                 }
             } else {
-                $slug = Text::slug($slug, [
+                $slug = Text::slug(mb_strtolower($slug), [
                     'replacement' => $this->_config[$field]['replacement']
                 ]);
             }
