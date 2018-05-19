@@ -49,36 +49,38 @@ class SlugBehavior extends Behavior
                 $slug = $config;
             }
 
-            if (!isset($this->_config[$slug]['field'])) {
-                $this->_config[$slug]['field'] = $this->_defaultField;
-            }
+            if (!isset($this->_config[$slug]['present']) || $this->_config[$slug]['present'] !== true) {
+                if (!isset($this->_config[$slug]['field'])) {
+                    $this->_config[$slug]['field'] = $this->_defaultField;
+                }
 
-            if ($this->_table->hasField($slug)) {
-                if ($this->_table->hasField($this->_config[$slug]['field'])) {
-                    $schema = $this->_table->getSchema()->getColumn($slug);
+                if ($this->_table->hasField($slug)) {
+                    if ($this->_table->hasField($this->_config[$slug]['field'])) {
+                        $schema = $this->_table->getSchema()->getColumn($slug);
 
-                    if ($schema['type'] == 'string') {
-                        if (!isset($this->_config[$slug]['replacement'])) {
-                            $this->_config[$slug]['replacement'] = $this->_defaultReplacement;
+                        if ($schema['type'] == 'string') {
+                            if (!isset($this->_config[$slug]['replacement'])) {
+                                $this->_config[$slug]['replacement'] = $this->_defaultReplacement;
+                            }
+
+                            if (!isset($this->_config[$slug]['length']) || $this->_config[$slug]['length'] > $schema['length']) {
+                                $this->_config[$slug]['length'] = $schema['length'];
+                            }
+
+                            if (!isset($this->_config[$slug]['finder'])) {
+                                $this->_config[$slug]['finder'] = $this->_defaultFinder;
+                            }
+
+                            $entity->{$slug} = $this->createSlug($entity->{$this->_config[$slug]['field']}, $slug);
+                        } else {
+                            throw new FieldTypeException(__d('slug', 'Field {s} should be string type.', $slug));
                         }
-
-                        if (!isset($this->_config[$slug]['length']) || $this->_config[$slug]['length'] > $schema['length']) {
-                            $this->_config[$slug]['length'] = $schema['length'];
-                        }
-
-                        if (!isset($this->_config[$slug]['finder'])) {
-                            $this->_config[$slug]['finder'] = $this->_defaultFinder;
-                        }
-
-                        $entity->{$slug} = $this->createSlug($entity->{$this->_config[$slug]['field']}, $slug);
                     } else {
-                        throw new FieldTypeException(__d('slug', 'Field {s} should be string type.', $slug));
+                        throw new FieldException(__d('slug', 'Cannot find {0} field as source in schema.', $this->_config[$slug]['field']));
                     }
                 } else {
-                    throw new FieldException(__d('slug', 'Cannot find {0} field as source in schema.', $this->_config[$slug]['field']));
+                    throw new FieldException(__d('slug', 'Cannot find {0} field in schema.', $slug));
                 }
-            } else {
-                throw new FieldException(__d('slug', 'Cannot find {0} field in schema.', $slug));
             }
         }
     }
