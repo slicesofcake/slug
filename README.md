@@ -13,7 +13,7 @@ You can install plugin into your CakePHP application using [composer](http://get
 The recommended way to install composer packages is:
 
 ```
-composer require kicaj/slug dev-master
+composer require kicaj/slug
 ```
 
 Load the Behavior
