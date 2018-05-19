@@ -191,6 +191,8 @@ class SlugBehavior extends Behavior
     protected function _sortSlugs($slugs)
     {
         if (!empty($slugs)) {
+            $slugs = array_unique($slugs);
+
             usort($slugs, function ($left, $right) {
                 preg_match('/[1-9]{1}[0-9]*$/', $left, $matchLeft);
                 preg_match('/[1-9]{1}[0-9]*$/', $right, $matchRight);
