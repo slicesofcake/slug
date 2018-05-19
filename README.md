@@ -19,7 +19,7 @@ composer require kicaj/slug dev-master
 Load the Behavior
 ---------------------
 
-Load the Behavior in your src/Model/Table/YourTable.php (or if You have AppTable.php). The default field named in database is `deleted` (like `created` or `modified`) and should be compatible type with `Time::now()` (eg. `DATE` or `DATETIME`).
+Load the Behavior in your src/Model/Table/YourTable.php (or if You have AppTable.php). 
 ```
 public function initialize(array $config)
 {
