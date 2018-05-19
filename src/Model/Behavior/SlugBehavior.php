@@ -4,12 +4,13 @@ namespace Slug\Model\Behavior;
 use Cake\ORM\Behavior;
 use Cake\Event\Event;
 use Cake\Datasource\EntityInterface;
-use Cake\Database\Exception;
+use Cake\Utility\Text;
 use Slug\Exception\FieldException;
 use Slug\Exception\FieldTypeException;
 use Slug\Exception\IncrementException;
 use Slug\Exception\LengthException;
 use Slug\Exception\LimitException;
+use Slug\Exception\MethodException;
 
 class SlugBehavior extends Behavior
 {
@@ -95,6 +96,18 @@ class SlugBehavior extends Behavior
     public function createSlug($slug, $field)
     {
         if ((mb_strlen($this->_config[$field]['replacement']) + 1) < $this->_config[$field]['length']) {
+            if (isset($this->_config[$field]['method'])) {
+                if (method_exists($this->_table, $this->_config[$field]['method'])) {
+                    $slug = $this->_table->{$this->_config[$field]['method']}($slug, $this->_config[$field]['replacement']);
+                } else {
+                    throw new MethodException(__d('slug', 'Method {0} does not exist.', $this->_config[$field]['method']));
+                }
+            } else {
+                $slug = Text::slug($slug, [
+                    'replacement' => $this->_config[$field]['replacement']
+                ]);
+            }
+
             $slugs = $this->_sortSlugs($this->_getSlugs($slug, $field));
 
             // Slug is just numbers
@@ -118,7 +131,7 @@ class SlugBehavior extends Behavior
                 $slugs = $this->_sortSlugs($this->_getSlugs($slug, $field));
             }
 
-            $slug = preg_replace('/\s+/', $this->_config[$field]['replacement'], preg_replace('/' . preg_quote($this->_config[$field]['replacement']) . '$/', '', trim(mb_substr($slug, 0, $this->_config[$field]['length']))));
+            $slug = preg_replace('/' . preg_quote($this->_config[$field]['replacement']) . '$/', '', trim(mb_substr($slug, 0, $this->_config[$field]['length'])));
 
             if (in_array($slug, $slugs)) {
                 $list = preg_grep('/^' . preg_replace('/' . preg_quote($this->_config[$field]['replacement']) . '([1-9]{1}[0-9]*)$/', $this->_config[$field]['replacement'], $slug) . '/', $slugs);
