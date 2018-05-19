@@ -32,8 +32,8 @@ public function initialize(array $config)
 You can configuration to customize the Slug plugin:
 ```
 $this->addBehavior('Slug.Slug', [
-    'slug' => [
-        'replacement' => '_', Default is -
+    'slug' => [ // Name of column to store slugs, default is slug
+        'replacement' => '_', // Default is -
         'field' => 'name' // Field to create slug, default is title
         'finder' => 'some' // You can build findSome, default is list
     ],
