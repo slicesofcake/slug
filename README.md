@@ -1,7 +1,5 @@
 # Slug plugin for CakePHP
 
-**NOTE:** It's still in development mode, do not use in production yet!
-
 ## Requirements
 
 It is developed for CakePHP 3.x.
