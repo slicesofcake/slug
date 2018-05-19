@@ -16,6 +16,31 @@ The recommended way to install composer packages is:
 composer require kicaj/slug dev-master
 ```
 
+Load the Behavior
+---------------------
+
+Load the Behavior in your src/Model/Table/YourTable.php (or if You have AppTable.php). The default field named in database is `deleted` (like `created` or `modified`) and should be compatible type with `Time::now()` (eg. `DATE` or `DATETIME`).
+```
+public function initialize(array $config)
+{
+    parent::initialize($config);
+
+    $this->addBehavior('Slug.Slug');
+}
+```
+
+You can configuration to customize the Slug plugin:
+```
+$this->addBehavior('Slug.Slug', [
+    'slug' => [
+        'replacement' => '_', Default is -
+        'field' => 'name' // Field to create slug, default is title
+        'finder' => 'some' // You can build findSome, default is list
+    ],
+]);
+```
+
+
 ## TODOs
 
 - [X] Check own finder
