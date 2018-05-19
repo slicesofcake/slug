@@ -39,9 +39,3 @@ $this->addBehavior('Slug.Slug', [
     ],
 ]);
 ```
-
-
-## TODOs
-
-- [X] Check own finder
-- [ ] Slug beforeSave callback from Behavior is runnig while the Deleted plugin is attached
