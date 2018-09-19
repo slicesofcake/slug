@@ -1,5 +1,8 @@
 # Slug plugin for CakePHP
 
+[![Build Status](https://scrutinizer-ci.com/g/kicaj/slug/badges/build.png?b=master)](https://scrutinizer-ci.com/g/kicaj/slug/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kicaj/slug/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kicaj/slug/?branch=master)
+
 ## Requirements
 
 It is developed for CakePHP 3.x.
