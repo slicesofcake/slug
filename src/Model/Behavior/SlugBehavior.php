@@ -97,19 +97,21 @@ class SlugBehavior extends Behavior
      */
     public function createSlug($slug, $field)
     {
-        if ((mb_strlen($this->_config[$field]['replacement']) + 1) >= $this->_config[$field]['length']) {
+        $config = $this->_config[$field];
+
+        if ((mb_strlen($config['replacement']) + 1) >= $config['length']) {
             throw new LimitException(__d('slug', 'Limit of length in {0} field is too short.', $field));
         }
 
-        if (isset($this->_config[$field]['method'])) {
-            if (!method_exists($this->_table, $this->_config[$field]['method'])) {
-                throw new MethodException(__d('slug', 'Method {0} does not exist.', $this->_config[$field]['method']));
+        if (isset($config['method'])) {
+            if (!method_exists($this->_table, $config['method'])) {
+                throw new MethodException(__d('slug', 'Method {0} does not exist.', $config['method']));
             }
 
-            $slug = $this->_table->{$this->_config[$field]['method']}($slug, $this->_config[$field]['replacement']);
+            $slug = $this->_table->{$config['method']}($slug, $config['replacement']);
         } else {
             $slug = Text::slug(mb_strtolower($slug), [
-                'replacement' => $this->_config[$field]['replacement']
+                'replacement' => $config['replacement']
             ]);
         }
 
@@ -129,19 +131,19 @@ class SlugBehavior extends Behavior
         }
 
         // Cut slug
-        if (mb_strlen($replace = preg_replace('/\s+/', $this->_config[$field]['replacement'], $slug)) > $this->_config[$field]['length']) {
-            $slug = mb_substr($replace, 0, $this->_config[$field]['length']);
+        if (mb_strlen($replace = preg_replace('/\s+/', $config['replacement'], $slug)) > $config['length']) {
+            $slug = mb_substr($replace, 0, $config['length']);
 
             // Update slug list based on cut slug
             $slugs = $this->_sortSlugs($this->_getSlugs($slug, $field));
         }
 
-        $slug = preg_replace('/' . preg_quote($this->_config[$field]['replacement']) . '$/', '', trim(mb_substr($slug, 0, $this->_config[$field]['length'])));
+        $slug = preg_replace('/' . preg_quote($config['replacement']) . '$/', '', trim(mb_substr($slug, 0, $config['length'])));
 
         if (in_array($slug, $slugs)) {
-            $list = preg_grep('/^' . preg_replace('/' . preg_quote($this->_config[$field]['replacement']) . '([1-9]{1}[0-9]*)$/', $this->_config[$field]['replacement'], $slug) . '/', $slugs);
+            $list = preg_grep('/^' . preg_replace('/' . preg_quote($config['replacement']) . '([1-9]{1}[0-9]*)$/', $config['replacement'], $slug) . '/', $slugs);
 
-            preg_match('/^(.*)' . preg_quote($this->_config[$field]['replacement']) . '([1-9]{1}[0-9]*)$/', end($list), $matches);
+            preg_match('/^(.*)' . preg_quote($config['replacement']) . '([1-9]{1}[0-9]*)$/', end($list), $matches);
 
             if (empty($matches)) {
                 $increment = 1;
@@ -153,19 +155,19 @@ class SlugBehavior extends Behavior
                 }
             }
 
-            if (mb_strlen($slug . $this->_config[$field]['replacement'] . $increment) <= $this->_config[$field]['length']) {
+            if (mb_strlen($slug . $config['replacement'] . $increment) <= $config['length']) {
                 $string = $slug;
-            } elseif (mb_strlen(mb_substr($slug, 0, -mb_strlen($increment))) + mb_strlen($this->_config[$field]['replacement'] . $increment) <= $this->_config[$field]['length']) {
-                $string = mb_substr($slug, 0, $this->_config[$field]['length'] - mb_strlen($this->_config[$field]['replacement'] . $increment));
+            } elseif (mb_strlen(mb_substr($slug, 0, -mb_strlen($increment))) + mb_strlen($config['replacement'] . $increment) <= $config['length']) {
+                $string = mb_substr($slug, 0, $config['length'] - mb_strlen($config['replacement'] . $increment));
             } else {
-                $string = mb_substr($slug, 0, -(mb_strlen($this->_config[$field]['replacement'] . $increment)));
+                $string = mb_substr($slug, 0, -(mb_strlen($config['replacement'] . $increment)));
             }
 
             if (mb_strlen($string) <= 0) {
                 throw new LengthException(__d('slug', 'Cannot create slug because there are no available names.'));
             }
 
-            $slug = $string . $this->_config[$field]['replacement'] . $increment;
+            $slug = $string . $config['replacement'] . $increment;
 
             // Refresh slugs list
             $slugs = $this->_sortSlugs(array_merge($slugs, $this->_getSlugs($slug, $field)));
