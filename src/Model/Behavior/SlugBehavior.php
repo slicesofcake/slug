@@ -69,7 +69,7 @@ class SlugBehavior extends Behavior
             $schema = $this->_table->getSchema()->getColumn($slug);
 
             if ($schema['type'] != 'string') {
-                throw new FieldTypeException(__d('slug', 'Field {s} should be string type.', $slug));
+                throw new FieldTypeException(__d('slug', 'Field {0} should be string type.', $slug));
             }
 
             if (!isset($this->_config[$slug]['replacement'])) {
