@@ -2,6 +2,8 @@
 
 [![Build Status](https://scrutinizer-ci.com/g/kicaj/slug/badges/build.png?b=master)](https://scrutinizer-ci.com/g/kicaj/slug/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kicaj/slug/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kicaj/slug/?branch=master)
+[![LICENSE](https://img.shields.io/github/license/kicaj/slug.svg)](https://github.com/kicaj/slug/blob/master/LICENSE)
+[![Releases](https://img.shields.io/github/release/kicaj/slug.svg)](https://github.com/kicaj/slug/releases)
 
 ## Requirements
 
