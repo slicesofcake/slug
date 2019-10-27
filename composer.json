@@ -1,6 +1,7 @@
 {
 	"name" : "kicaj/slug",
 	"description" : "Slug plugin for CakePHP",
+	"homepage" : "https://github.com/kicaj/slug",
 	"type" : "cakephp-plugin",
 	"license" : "MIT",
 	"support" : {
