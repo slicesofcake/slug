@@ -3,7 +3,7 @@ namespace Slug\Exception;
 
 use Cake\Core\Exception\Exception;
 
-class LengthException extends Exception
+class IncrementException extends Exception
 {
     /**
      * {@inheritdoc}
