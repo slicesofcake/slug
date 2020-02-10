@@ -7,7 +7,7 @@
 
 ## Requirements
 
-It is developed for CakePHP 3.x.
+It is developed for CakePHP 4.x.
 
 ## Installation
 
