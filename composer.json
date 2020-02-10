@@ -18,8 +18,8 @@
 		}
 	],
 	"require" : {
-		"cakephp/cakephp" : "^3",
-		"ext-mbstring" : "*"
+		"ext-mbstring" : "*",
+		"cakephp/cakephp" : "^4.0"
 	},
 	"autoload" : {
 		"psr-4" : {
