@@ -127,7 +127,7 @@ class SlugBehavior extends Behavior
                     $slug = mb_substr($replace, 0, $config['length']);
 
                     // Update slug list based on cut slug
-                    $slugs = $this->sortSlugs($this->getSlugs($slug, $field));
+                    $slugs = $this->sortSlugs($this->getSlugs($slug, $target));
                 }
 
                 $slug = preg_replace('/' . preg_quote($config['replacement']) . '$/', '', trim(mb_substr($slug, 0, $config['length'])));
