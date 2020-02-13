@@ -67,7 +67,11 @@ class SlugBehavior extends Behavior
      */
     public function beforeFind(Event $event, Query $query, $options)
     {
-        $query->select(array_keys($this->getConfig()));
+        $config = $this->getConfig();
+
+        if (is_array($config)) {
+            $query->select(array_keys($config));
+        }
     }
 
     /**
