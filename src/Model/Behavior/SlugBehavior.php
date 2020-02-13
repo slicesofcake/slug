@@ -101,7 +101,7 @@ class SlugBehavior extends Behavior
             if ((mb_strlen($config['replacement']) + 1) < $config['length']) {
                 if (isset($config['method'])) {
                     if (method_exists($this->getTable(), $config['method'])) {
-                        $slug = $this->getTable()->{$config['method']}($entity->{$config['source']}, $config);
+                        $slug = $this->getTable()->{$config['method']}($entity, $config);
                     } else {
                         throw new MethodException(__d('slug', 'Method {0} does not exist.', $config['method']));
                     }
