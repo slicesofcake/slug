@@ -97,7 +97,7 @@ class SlugBehavior extends Behavior
     {
         $config = $this->getConfig($target);
 
-        if ($entity->isDirty($config['source'])) {
+        if ($entity->isDirty($config['source']) || empty($entity->{$target})) {
             if ((mb_strlen($config['replacement']) + 1) < $config['length']) {
                 if (isset($config['method'])) {
                     if (method_exists($this->getTable(), $config['method'])) {
