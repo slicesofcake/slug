@@ -36,8 +36,8 @@ You can configuration to customize the Slug plugin:
 ```
 $this->addBehavior('Slug.Slug', [
     'slug' => [ // Name of column to store slugs, default is slug
+        'source' => 'name', // Source field name to create slug, default is title
         'replacement' => '_', // Default is -
-        'field' => 'name', // Field to create slug, default is title
         'finder' => 'some', // You can build own custom finder method, like findSome, default is built-in list
         'present' => true, // Rewrite slug, default is false, was added in 1.1.0
         'method' => 'someOther', // You can build own method for create string slug, now default is built-in Text::slug, was added in 1.2.0
