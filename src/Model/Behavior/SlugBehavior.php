@@ -81,7 +81,9 @@ class SlugBehavior extends Behavior
     {
         foreach ($this->getConfig() as $target => $config) {
             if (!isset($config['present']) || $config['present'] !== true) {
-                $entity->{$target} = $this->createSlug($entity, $target);
+                if ($entity->isAccessible($target)) {
+                    $entity->{$target} = $this->createSlug($entity, $target);
+                }
             }
         }
     }
