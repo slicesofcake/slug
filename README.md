@@ -18,7 +18,7 @@ You can install plugin into your CakePHP application using [composer](http://get
 The recommended way to install composer packages is:
 
 ```
-composer require kicaj/slug
+composer require slicesofcake/slug
 ```
 
 Load the Behavior
