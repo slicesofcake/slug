@@ -1,12 +1,12 @@
 {
-	"name" : "kicaj/slug",
-	"description" : "Slug plugin for CakePHP",
-	"homepage" : "https://github.com/kicaj/slug",
+	"name" : "slicesofcake/slug",
+	"description" : "CakePHP plugin for slugs",
+	"homepage" : "https://github.com/slicesofcake/slug",
 	"type" : "cakephp-plugin",
 	"license" : "MIT",
 	"support" : {
-		"issues" : "https://github.com/kicaj/slug/issues",
-		"source" : "https://github.com/kicaj/slug"
+		"issues" : "https://github.com/slicesofcake/slug/issues",
+		"source" : "https://github.com/slicesofcake/slug"
 	},
 	"authors" : [{
 			"name" : "kicaj",
@@ -14,7 +14,7 @@
 			"role" : "Author"
 		}, {
 			"name" : "Others",
-			"homepage" : "https://github.com/kicaj/slug/graphs/contributors"
+			"homepage" : "https://github.com/slicesofcake/slug/graphs/contributors"
 		}
 	],
 	"require" : {
@@ -23,8 +23,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"Slug\\" : "src"
+			"SlicesCake\\Slug\\" : "src"
 		}
-	},
-	"minimum-stability" : "dev"
+	}
 }
