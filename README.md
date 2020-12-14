@@ -1,9 +1,9 @@
 # CakePHP plugin for slugs
 
-[![Build Status](https://scrutinizer-ci.com/g/slicesofcake /slug/badges/build.png?b=master)](https://scrutinizer-ci.com/g/slicesofcake /slug/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/slicesofcake /slug/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/slicesofcake /slug/?branch=master)
-[![LICENSE](https://img.shields.io/github/license/slicesofcake /slug.svg)](https://github.com/slicesofcake /slug/blob/master/LICENSE)
-[![Releases](https://img.shields.io/github/release/slicesofcake /slug.svg)](https://github.com/slicesofcake /slug/releases)
+[![Build Status](https://scrutinizer-ci.com/g/slicesofcake/slug/badges/build.png?b=master)](https://scrutinizer-ci.com/g/slicesofcake/slug/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/slicesofcake/slug/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/slicesofcake/slug/?branch=master)
+[![LICENSE](https://img.shields.io/github/license/slicesofcake/slug.svg)](https://github.com/slicesofcake/slug/blob/master/LICENSE)
+[![Releases](https://img.shields.io/github/release/slicesofcake/slug.svg)](https://github.com/slicesofcake/slug/releases)
 
 ## Requirements
 
