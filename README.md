@@ -5,6 +5,8 @@
 [![LICENSE](https://img.shields.io/github/license/slicesofcake/slug.svg)](https://github.com/slicesofcake/slug/blob/master/LICENSE)
 [![Releases](https://img.shields.io/github/release/slicesofcake/slug.svg)](https://github.com/slicesofcake/slug/releases)
 
+Automatic creation of friendly links based on title or name.
+
 ## Requirements
 
 It is developed for CakePHP 4.x.
