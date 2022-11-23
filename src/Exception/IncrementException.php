@@ -1,9 +1,12 @@
 <?php
-namespace Slug\Exception;
+namespace SlicesCake\Slug\Exception;
 
 use Cake\Core\Exception\Exception;
 
-class LengthException extends Exception
+/**
+ * IncrementException
+ */
+class IncrementException extends Exception
 {
     /**
      * {@inheritdoc}

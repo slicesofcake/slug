@@ -1,18 +1,21 @@
 <?php
-namespace Slug\Model\Behavior;
+namespace SlicesCake\Slug\Model\Behavior;
 
 use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
 use Cake\ORM\Query;
 use Cake\Utility\Text;
-use Slug\Exception\FieldException;
-use Slug\Exception\FieldTypeException;
-use Slug\Exception\IncrementException;
-use Slug\Exception\LengthException;
-use Slug\Exception\LimitException;
-use Slug\Exception\MethodException;
+use SlicesCake\Slug\Exception\FieldException;
+use SlicesCake\Slug\Exception\FieldTypeException;
+use SlicesCake\Slug\Exception\IncrementException;
+use SlicesCake\Slug\Exception\LengthException;
+use SlicesCake\Slug\Exception\LimitException;
+use SlicesCake\Slug\Exception\MethodException;
 
+/**
+ * SlugBehavior
+ */
 class SlugBehavior extends Behavior
 {
 
@@ -21,7 +24,7 @@ class SlugBehavior extends Behavior
      *
      * @var array
      */
-    public $defaultConfig = [
+    public array $defaultConfig = [
         'source' => 'name',
         'replacement' => '-',
         'finder' => 'list',
@@ -50,13 +53,13 @@ class SlugBehavior extends Behavior
                 $this->setConfig($target, array_merge($this->defaultConfig, $config));
             }
 
-            if (!$this->getTable()->hasField($target)) {
+            if (!$this->table()->hasField($target)) {
                 throw new FieldException(__d('slug', 'Cannot find target {0} field in schema.', $target));
-            } elseif (!$this->getTable()->hasField($this->getConfig($target . '.source'))) {
+            } elseif (!$this->table()->hasField($this->getConfig($target . '.source'))) {
                 throw new FieldException(__d('slug', 'Cannot find source {0} field in schema.', $this->getConfig($target . '.source')));
             }
 
-            if ($this->getTable()->getSchema()->getColumnType($target) !== 'string') {
+            if ($this->table()->getSchema()->getColumnType($target) !== 'string') {
                 throw new FieldTypeException(__d('slug', 'Target field {0} should be string type.', $target));
             }
         }
@@ -91,19 +94,19 @@ class SlugBehavior extends Behavior
     /**
      * Create slug.
      *
-     * @param EntityInterface $entity Entity.
+     * @param EntityInterface|string $entity Entity.
      * @param string $target Target slug field name.
      * @return string Slug.
      */
-    public function createSlug(EntityInterface $entity, string $target): string
+    public function createSlug($entity, string $target): string
     {
         $config = $this->getConfig($target);
 
         if ($entity->isDirty($config['source']) || empty($entity->{$target})) {
             if ((mb_strlen($config['replacement']) + 1) < $config['length']) {
                 if (isset($config['method'])) {
-                    if (method_exists($this->getTable(), $config['method'])) {
-                        $slug = $this->getTable()->{$config['method']}($entity, $config);
+                    if (method_exists($this->table(), $config['method'])) {
+                        $slug = $this->table()->{$config['method']}($entity, $config);
                     } else {
                         throw new MethodException(__d('slug', 'Method {0} does not exist.', $config['method']));
                     }
@@ -193,15 +196,15 @@ class SlugBehavior extends Behavior
      */
     protected function getSlugs(string $slug, string $target): array
     {
-        return $this->getTable()->find($this->getConfig($target . '.finder'), [
+        return $this->table()->find($this->getConfig($target . '.finder'), [
             'valueField' => $target,
         ])->where([
             'OR' => [
-                $this->getTable()->getAlias() . '.' . $target => $slug,
-                $this->getTable()->getAlias() . '.' . $target . ' REGEXP' => '^' . preg_replace('/' . preg_quote($this->getConfig($target . '.replacement')) . '([1-9]{1}[0-9]*)$/', '', $slug),
+                $this->table()->getAlias() . '.' . $target => $slug,
+                $this->table()->getAlias() . '.' . $target . ' REGEXP' => '^' . preg_replace('/' . preg_quote($this->getConfig($target . '.replacement')) . '([1-9]{1}[0-9]*)$/', '', $slug),
             ],
         ])->order([
-            $this->getTable()->getAlias() . '.' . $target => 'ASC',
+            $this->table()->getAlias() . '.' . $target => 'ASC',
         ])->toArray();
     }
 

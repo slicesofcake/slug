@@ -1,8 +1,11 @@
 <?php
-namespace Slug\Exception;
+namespace SlicesCake\Slug\Exception;
 
 use Cake\Core\Exception\Exception;
 
+/**
+ * LimitException
+ */
 class LimitException extends Exception
 {
     /**
